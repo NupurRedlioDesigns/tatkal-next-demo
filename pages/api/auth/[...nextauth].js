@@ -9,12 +9,11 @@ const options = {
             type: 'credentials',
             credentials: {},
             async authorize(credentials, req) {
-
                 const { email, password } = credentials;
                 const data = await authenticateUser(email, password, req.headers.origin);
                 if (data) {
-                    const token = jwt.sign({ id: data._id, email: data.email }, process.env.JWT_SECRET, { expiresIn: "1h" });
-                    return data;
+                    const token = jwt.sign({ id: data.id, email: data.email }, process.env.JWT_SECRET, { expiresIn: "10s" });
+                    return token;
                 } else {
                     return null;
                 }
@@ -47,7 +46,7 @@ export default (req, res) => NextAuth(req, res, options);
 
 async function authenticateUser(email, password, url) {
     const { data } = await instance.post(`${url}/api/login`, { email, password });
-    if (data.email === email && data.password===password) {
+    if (data.email === email && data.password === password) {
         delete data.password;
         return data;
     } else {

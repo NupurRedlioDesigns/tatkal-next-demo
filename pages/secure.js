@@ -8,7 +8,7 @@ export default function Secure() {
   const router = useRouter()
 
   useEffect(() => {
-    console.log(data);
+    console.log(status);
     if (status === 'unauthenticated') {
       router.push('/auth/SignIn')
     }
