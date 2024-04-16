@@ -13,7 +13,7 @@ const options = {
                 const data = await authenticateUser(email, password, req.headers.origin);
                 if (data) {
                     const token = jwt.sign({ id: data.id, email: data.email }, process.env.JWT_SECRET, { expiresIn: "10s" });
-                    return token;
+                    return data;
                 } else {
                     return null;
                 }
@@ -21,8 +21,8 @@ const options = {
         }),
     ],
     pages: { signIn: '/auth/SignIn' },
-    session: { jwt: true, },
-    jwt: { secret: process.env.JWT_SECRET, },
+    session: { jwt: true, maxAge: 10 },
+    jwt: { secret: process.env.JWT_SECRET, maxAge: 10 },
     callbacks: {
         jwt: async ({ token, user }) => {
             if (user) {
