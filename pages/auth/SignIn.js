@@ -1,10 +1,7 @@
-import { Form, Button, Alert } from "react-bootstrap";
+import { Form, Button, } from "react-bootstrap";
 import React, { useState } from "react";
-import Image from "next/image";
 import { useRouter } from "next/router";
-import { signIn, signOut, useSession } from "next-auth/react";
-import { useEffect } from "react";
-import { instance } from "@/utils/Apiconfig";
+import { signIn, } from "next-auth/react";
 import { toast } from "react-toastify";
 import "./Signin.module.scss";
 
